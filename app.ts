@@ -5,13 +5,15 @@ import { ControllerUser } from './controller/controllerUser';
 const mongoose = require('mongoose');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-
+require('dotenv').config();
+const port = process.env.PORT || 3000;
 /**
  * On créé une nouvelle "application" express
  */
 const app = express();
 const bodyParser = require('body-parser');
 app.use(cookieParser());
+app.listen(port);
 
 /**
  * On dit à Express que l'on souhaite parser le body des requêtes en JSON
@@ -75,7 +77,9 @@ app.listen(8888, () => {
 
 async function main() {
   try {
-    await mongoose.connect('mongodb://localhost/Gestion_stock');
+    await mongoose.connect(
+      process.env.MONGODB_URI || 'mongodb://localhost/Gestion_stock'
+    );
     console.log('Connection mongodb ok');
   } catch (e) {
     console.log(e);
