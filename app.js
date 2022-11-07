@@ -43,7 +43,7 @@ var mongoose = require('mongoose');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 require('dotenv').config();
-var port = process.env.MONGODB_URI || 8888;
+var port = process.env.PORT || 8888;
 /**
  * On créé une nouvelle "application" express
  */
