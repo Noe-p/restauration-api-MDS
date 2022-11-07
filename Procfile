@@ -1,1 +1,1 @@
-web: Supervisor app  
+web: npm start

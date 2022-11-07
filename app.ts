@@ -71,10 +71,6 @@ app.get('/logout', (req, res) => {
   res.redirect('/');
 });
 
-app.listen(8888, () => {
-  'Serveur listening on port :8888';
-});
-
 async function main() {
   try {
     await mongoose.connect(

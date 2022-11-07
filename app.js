@@ -42,12 +42,15 @@ var controllerUser_1 = require("./controller/controllerUser");
 var mongoose = require('mongoose');
 var express = require('express');
 var cookieParser = require('cookie-parser');
+require('dotenv').config();
+var port = process.env.PORT || 8888;
 /**
  * On créé une nouvelle "application" express
  */
 var app = express();
 var bodyParser = require('body-parser');
 app.use(cookieParser());
+app.listen(port);
 /**
  * On dit à Express que l'on souhaite parser le body des requêtes en JSON
  *
@@ -88,9 +91,6 @@ app.get('/logout', function (req, res) {
     res.cookie('jwt', '', { maxAge: '1' });
     res.redirect('/');
 });
-app.listen(8888, function () {
-    'Serveur listening on port :8888';
-});
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var e_1;
@@ -98,7 +98,7 @@ function main() {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    return [4 /*yield*/, mongoose.connect('mongodb://localhost/Gestion_stock')];
+                    return [4 /*yield*/, mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/Gestion_stock')];
                 case 1:
                     _a.sent();
                     console.log('Connection mongodb ok');

@@ -123,7 +123,6 @@ var Plat = /** @class */ (function () {
                     case 0:
                         plat = new PlatModel({
                             nom: body.nom,
-                            quantiteInStock: body.quantiteInStock,
                             aliments: body.aliments,
                             description: body.description,
                             image: body.image,
