@@ -39,6 +39,8 @@ app.use((req, res, next) => {
   next();
 });
 
+const { adminAuth, userAuth } = require('./middleware/auth.js');
+
 // ROUTES ALIMENTS
 app.get('/', (req, res) => res.send('🏠👌'));
 app.get('/aliments', ControllerAliment.getAliments);
@@ -57,12 +59,10 @@ app.delete('/plats/:id', ControllerPlat.deletePlat);
 app.put('/plats/:id', ControllerPlat.updatePlat);
 
 // ROUTES USER
-const { adminAuth, userAuth } = require('./middleware/auth.js');
-
 app.post('/signup', ControllerUser.signup);
 app.post('/login', ControllerUser.login);
-app.put('/users/update', adminAuth, ControllerUser.update);
-app.delete('/users/delete', adminAuth, ControllerUser.delete);
+app.put('/user/update', userAuth, ControllerUser.update);
+app.delete('/users/:id', userAuth, ControllerUser.delete);
 app.get('/users', adminAuth, ControllerUser.getUsers);
 app.get('/users/:id', userAuth, ControllerUser.getUser);
 
@@ -81,26 +81,5 @@ async function main() {
     console.log(e);
   }
 }
-
-// const navet = new AlimentModel({
-//   nom: 'Navet', // String isshorthandfor {type: String}
-//   type: 'légume',
-//   quantite: 50,
-//   date: new Date(),
-// });
-
-// navet.save(function (err) {
-//   if (err) console.log(err); // Ok !
-// });
-
-// // Pour insérer plusieurs aliments à la fois
-// AlimentModel.insertMany(
-//   [
-//     { nom: 'Navet', type: 'légume', quantite: 50, date: new Date() },
-//     { nom: 'Pain à burger', type: 'epicerie', quantite: 20, date: new Date() },
-//     { nom: 'Cheddar', type: 'fromage', quantite: 20, date: new Date() },
-//   ],
-//   function (err) {}
-// );
 
 main();

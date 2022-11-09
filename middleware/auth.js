@@ -34,8 +34,10 @@ exports.userAuth = function (req, res, next) {
                     return res.status(401).json({ message: 'Not authorized' });
                 }
                 else {
-                    if (decodedToken.role !== 'Basic' && decodedToken.role !== 'admin') {
-                        return res.status(401).json({ message: 'Not authorized' });
+                    if (decodedToken.role !== 'basic' && decodedToken.role !== 'admin') {
+                        return res
+                            .status(401)
+                            .json({ message: "Vous n'avez pas les droit" });
                     }
                     else {
                         next();

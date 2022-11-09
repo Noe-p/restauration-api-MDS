@@ -12,7 +12,27 @@ const UserSchema = new Mongoose.Schema({
   },
   role: {
     type: String,
-    default: 'Basic',
+    default: 'basic',
+    required: true,
+  },
+  address: {
+    type: String,
+    unique: false,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  phone: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  country: {
+    type: String,
+    unique: false,
     required: true,
   },
 });

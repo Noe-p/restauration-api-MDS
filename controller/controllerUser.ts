@@ -7,7 +7,8 @@ const jwtSecret =
 
 export class ControllerUser {
   public static signup = async (req, res, next) => {
-    const { username, password } = req.body;
+    const { username, password, country, role, phone, email, address } =
+      req.body;
 
     if (password.length < 6) {
       return res
@@ -19,6 +20,11 @@ export class ControllerUser {
       await User.create({
         username,
         password: hash,
+        role: role,
+        phone: phone,
+        email: email,
+        address: address,
+        country: country,
       })
         .then((user) => {
           const maxAge = 3 * 60 * 60;
@@ -48,37 +54,33 @@ export class ControllerUser {
   };
 
   public static update = async (req, res, next) => {
-    const { role, id } = req.body;
+    const { role, id, email, username, phone, address, country } = req.body;
     // First - Verifying if role and id is presnt
     if (role && id) {
-      // Second - Verifying if the value of role is admin
-      if (role === 'admin') {
-        // Finds the user with the id
-        await User.findById(id)
-          .then((user) => {
-            // Third - Verifies the user is not an admin
-            if (user.role !== 'admin') {
-              user.role = role;
-              user.save((err) => {
-                //Monogodb error checker
-                if (err) {
-                  res
-                    .status('400')
-                    .json({ message: 'An error occurred', error: err.message });
-                  process.exit(1);
-                }
-                res.status('201').json({ message: 'Update successful', user });
-              });
-            } else {
-              res.status(400).json({ message: 'User is already an Admin' });
+      await User.findById(id)
+        .then((user) => {
+          user.username = username;
+          user.role = role;
+          user.phone = phone;
+          user.email = email;
+          user.address = address;
+          user.country = country;
+          user.save((err) => {
+            //Monogodb error checker
+            if (err) {
+              res
+                .status('400')
+                .json({ message: 'An error occurred', error: err.message });
+              process.exit(1);
             }
-          })
-          .catch((error) => {
-            res
-              .status(400)
-              .json({ message: 'An error occurred', error: error.message });
+            res.status('201').json({ message: 'Update successful', user });
           });
-      }
+        })
+        .catch((error) => {
+          res
+            .status(400)
+            .json({ message: 'An error occurred', error: error.message });
+        });
     }
   };
 
@@ -131,8 +133,9 @@ export class ControllerUser {
   };
 
   public static delete = async (req, res, next) => {
-    const { id } = req.body;
-    await User.findById(id)
+    let userId: string = req.params.id;
+
+    await User.findById(userId)
       .then((user) => user.remove())
       .then((user) =>
         res.status(201).json({ message: 'User successfully deleted', user })

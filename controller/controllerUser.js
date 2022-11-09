@@ -47,9 +47,9 @@ var ControllerUser = /** @class */ (function () {
     var _a;
     _a = ControllerUser;
     ControllerUser.signup = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-        var _b, username, password;
+        var _b, username, password, country, role, phone, email, address;
         return __generator(_a, function (_c) {
-            _b = req.body, username = _b.username, password = _b.password;
+            _b = req.body, username = _b.username, password = _b.password, country = _b.country, role = _b.role, phone = _b.phone, email = _b.email, address = _b.address;
             if (password.length < 6) {
                 return [2 /*return*/, res
                         .status(400)
@@ -61,6 +61,11 @@ var ControllerUser = /** @class */ (function () {
                         case 0: return [4 /*yield*/, User.create({
                                 username: username,
                                 password: hash,
+                                role: role,
+                                phone: phone,
+                                email: email,
+                                address: address,
+                                country: country,
                             })
                                 .then(function (user) {
                                 var maxAge = 3 * 60 * 60;
@@ -92,33 +97,30 @@ var ControllerUser = /** @class */ (function () {
         });
     }); };
     ControllerUser.update = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-        var _b, role, id;
+        var _b, role, id, email, username, phone, address, country;
         return __generator(_a, function (_c) {
             switch (_c.label) {
                 case 0:
-                    _b = req.body, role = _b.role, id = _b.id;
+                    _b = req.body, role = _b.role, id = _b.id, email = _b.email, username = _b.username, phone = _b.phone, address = _b.address, country = _b.country;
                     if (!(role && id)) return [3 /*break*/, 2];
-                    if (!(role === 'admin')) return [3 /*break*/, 2];
-                    // Finds the user with the id
                     return [4 /*yield*/, User.findById(id)
                             .then(function (user) {
-                            // Third - Verifies the user is not an admin
-                            if (user.role !== 'admin') {
-                                user.role = role;
-                                user.save(function (err) {
-                                    //Monogodb error checker
-                                    if (err) {
-                                        res
-                                            .status('400')
-                                            .json({ message: 'An error occurred', error: err.message });
-                                        process.exit(1);
-                                    }
-                                    res.status('201').json({ message: 'Update successful', user: user });
-                                });
-                            }
-                            else {
-                                res.status(400).json({ message: 'User is already an Admin' });
-                            }
+                            user.username = username;
+                            user.role = role;
+                            user.phone = phone;
+                            user.email = email;
+                            user.address = address;
+                            user.country = country;
+                            user.save(function (err) {
+                                //Monogodb error checker
+                                if (err) {
+                                    res
+                                        .status('400')
+                                        .json({ message: 'An error occurred', error: err.message });
+                                    process.exit(1);
+                                }
+                                res.status('201').json({ message: 'Update successful', user: user });
+                            });
                         })
                             .catch(function (error) {
                             res
@@ -126,7 +128,6 @@ var ControllerUser = /** @class */ (function () {
                                 .json({ message: 'An error occurred', error: error.message });
                         })];
                 case 1:
-                    // Finds the user with the id
                     _c.sent();
                     _c.label = 2;
                 case 2: return [2 /*return*/];
@@ -191,12 +192,12 @@ var ControllerUser = /** @class */ (function () {
         });
     }); };
     ControllerUser.delete = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-        var id;
+        var userId;
         return __generator(_a, function (_b) {
             switch (_b.label) {
                 case 0:
-                    id = req.body.id;
-                    return [4 /*yield*/, User.findById(id)
+                    userId = req.params.id;
+                    return [4 /*yield*/, User.findById(userId)
                             .then(function (user) { return user.remove(); })
                             .then(function (user) {
                             return res.status(201).json({ message: 'User successfully deleted', user: user });

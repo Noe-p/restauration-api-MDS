@@ -64,6 +64,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
+var _a = require('./middleware/auth.js'), adminAuth = _a.adminAuth, userAuth = _a.userAuth;
 // ROUTES ALIMENTS
 app.get('/', function (req, res) { return res.send('🏠👌'); });
 app.get('/aliments', controllerAliment_1.ControllerAliment.getAliments);
@@ -80,11 +81,10 @@ app.post('/plats', controllerPlat_1.ControllerPlat.insertPlat);
 app.delete('/plats/:id', controllerPlat_1.ControllerPlat.deletePlat);
 app.put('/plats/:id', controllerPlat_1.ControllerPlat.updatePlat);
 // ROUTES USER
-var _a = require('./middleware/auth.js'), adminAuth = _a.adminAuth, userAuth = _a.userAuth;
 app.post('/signup', controllerUser_1.ControllerUser.signup);
 app.post('/login', controllerUser_1.ControllerUser.login);
-app.put('/users/update', adminAuth, controllerUser_1.ControllerUser.update);
-app.delete('/users/delete', adminAuth, controllerUser_1.ControllerUser.delete);
+app.put('/user/update', userAuth, controllerUser_1.ControllerUser.update);
+app.delete('/users/:id', userAuth, controllerUser_1.ControllerUser.delete);
 app.get('/users', adminAuth, controllerUser_1.ControllerUser.getUsers);
 app.get('/users/:id', userAuth, controllerUser_1.ControllerUser.getUser);
 app.get('/logout', function (req, res) {
@@ -112,23 +112,5 @@ function main() {
         });
     });
 }
-// const navet = new AlimentModel({
-//   nom: 'Navet', // String isshorthandfor {type: String}
-//   type: 'légume',
-//   quantite: 50,
-//   date: new Date(),
-// });
-// navet.save(function (err) {
-//   if (err) console.log(err); // Ok !
-// });
-// // Pour insérer plusieurs aliments à la fois
-// AlimentModel.insertMany(
-//   [
-//     { nom: 'Navet', type: 'légume', quantite: 50, date: new Date() },
-//     { nom: 'Pain à burger', type: 'epicerie', quantite: 20, date: new Date() },
-//     { nom: 'Cheddar', type: 'fromage', quantite: 20, date: new Date() },
-//   ],
-//   function (err) {}
-// );
 main();
 //# sourceMappingURL=app.js.map
