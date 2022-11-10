@@ -1,7 +1,9 @@
 import { ControllerAliment } from './controller/controllerAliment';
 import { ControllerPlat } from './controller/controllerPlat';
 import { ControllerUser } from './controller/controllerUser';
+import { swaggerDocument } from './swagger';
 
+const swaggerUi = require('swagger-ui-express');
 const mongoose = require('mongoose');
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -38,6 +40,8 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const { adminAuth, userAuth } = require('./middleware/auth.js');
 

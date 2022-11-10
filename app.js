@@ -39,6 +39,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var controllerAliment_1 = require("./controller/controllerAliment");
 var controllerPlat_1 = require("./controller/controllerPlat");
 var controllerUser_1 = require("./controller/controllerUser");
+var swagger_1 = require("./swagger");
+var swaggerUi = require('swagger-ui-express');
 var mongoose = require('mongoose');
 var express = require('express');
 var cookieParser = require('cookie-parser');
@@ -64,6 +66,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swagger_1.swaggerDocument));
 var _a = require('./middleware/auth.js'), adminAuth = _a.adminAuth, userAuth = _a.userAuth;
 // ROUTES ALIMENTS
 app.get('/', function (req, res) { return res.send('🏠👌'); });
