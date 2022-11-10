@@ -1,5 +1,5 @@
 export const getAliments = {
-  tags: ['Récupérer les aliments'],
+  tags: ['Aliment'],
   description: 'Retourne tous les aliments',
   security: [
     {
@@ -44,7 +44,7 @@ export const getAliments = {
 };
 
 export const getAlimentsByType = {
-  tags: ['Récupérer les aliments par type'],
+  tags: ['Aliment'],
   description: "Retourne tous les aliments en fonction d'un type",
   security: [
     {
@@ -109,7 +109,7 @@ export const getAlimentsByType = {
 };
 
 export const getAlimentsById = {
-  tags: ['Récupérer un aliment avec son ID'],
+  tags: ['Aliment'],
   description: "Retourne tous les aliments en fonction d'un ID",
   security: [
     {
@@ -165,7 +165,7 @@ export const getAlimentsById = {
 };
 
 export const postAliment = {
-  tags: ['Créer un aliment'],
+  tags: ['Aliment'],
   description: 'Créer un aliment',
   security: [
     {
@@ -205,7 +205,7 @@ export const postAliment = {
 };
 
 export const putAliment = {
-  tags: ['Modifier un aliment'],
+  tags: ['Aliment'],
   description: 'Modifier un aliment',
   security: [
     {
@@ -254,7 +254,7 @@ export const putAliment = {
 };
 
 export const deleteAliment = {
-  tags: ['Supprimer un aliment'],
+  tags: ['Aliment'],
   description: 'Supprimer un aliment',
   security: [
     {

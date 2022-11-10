@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAliment = exports.putAliment = exports.postAliment = exports.getAlimentsById = exports.getAlimentsByType = exports.getAliments = void 0;
 exports.getAliments = {
-    tags: ['Récupérer les aliments'],
+    tags: ['Aliment'],
     description: 'Retourne tous les aliments',
     security: [
         {
@@ -46,7 +46,7 @@ exports.getAliments = {
     },
 };
 exports.getAlimentsByType = {
-    tags: ['Récupérer les aliments par type'],
+    tags: ['Aliment'],
     description: "Retourne tous les aliments en fonction d'un type",
     security: [
         {
@@ -110,7 +110,7 @@ exports.getAlimentsByType = {
     },
 };
 exports.getAlimentsById = {
-    tags: ['Récupérer un aliment avec son ID'],
+    tags: ['Aliment'],
     description: "Retourne tous les aliments en fonction d'un ID",
     security: [
         {
@@ -165,7 +165,7 @@ exports.getAlimentsById = {
     },
 };
 exports.postAliment = {
-    tags: ['Créer un aliment'],
+    tags: ['Aliment'],
     description: 'Créer un aliment',
     security: [
         {
@@ -204,7 +204,7 @@ exports.postAliment = {
     },
 };
 exports.putAliment = {
-    tags: ['Modifier un aliment'],
+    tags: ['Aliment'],
     description: 'Modifier un aliment',
     security: [
         {
@@ -252,7 +252,7 @@ exports.putAliment = {
     },
 };
 exports.deleteAliment = {
-    tags: ['Supprimer un aliment'],
+    tags: ['Aliment'],
     description: 'Supprimer un aliment',
     security: [
         {
