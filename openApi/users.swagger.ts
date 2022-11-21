@@ -192,7 +192,6 @@ export const putUser = {
   parameters: [
     {
       in: 'body',
-      name: 'utilisateur',
       consumes: 'application/json',
       required: true,
       schema: {
