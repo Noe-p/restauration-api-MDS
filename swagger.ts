@@ -58,12 +58,12 @@ export const swaggerDocument = {
   },
   servers: [
     {
-      url: 'http://localhost:8888',
-      description: 'localhost',
-    },
-    {
       url: 'https://restauration-api--mds.herokuapp.com/',
       description: 'heroku',
+    },
+    {
+      url: 'http://localhost:8888',
+      description: 'localhost',
     },
   ],
   paths: {
