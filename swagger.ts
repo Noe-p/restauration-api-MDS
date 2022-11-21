@@ -4,7 +4,7 @@ import {
   getAlimentsById,
   getAlimentsByType,
   postAliment,
-  putAliment
+  putAliment,
 } from './openApi/aliments.swagger';
 import {
   deletePlat,
@@ -12,14 +12,14 @@ import {
   getPlatsById,
   getPlatsByType,
   postPlat,
-  putPlat
+  putPlat,
 } from './openApi/plats.swagger';
 import {
   deleteUser,
   getUserById,
   getUsers,
   postUser,
-  putUser
+  putUser,
 } from './openApi/users.swagger';
 
 export const swaggerDocument = {
@@ -28,9 +28,7 @@ export const swaggerDocument = {
     version: '1.0.0',
     title: 'Restauration APIs Document',
     description:
-      "- Token d'auhentification PROD: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmI4NjdkN2NiNTAxY2QyNGY1MGY0MSIsInVzZXJuYW1lIjoibm9lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjY5MDE4NTczLCJleHAiOjE2NjkwMjkzNzN9.o4BUPTsUYV2bnFsLpEXIkomy73pWzVBDIXty6MBmPaA",
-
-      "- Token d'auhentification DEV: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmI4NjdkN2NiNTAxY2QyNGY1MGY0MSIsInVzZXJuYW1lIjoibm9lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjY4NTg5OTk5LCJleHAiOjE2Njg2MDA3OTl9.Ru6JcVKxWSaLewgRkOlqh3hp2C5dy-nsKBqwDhpDi5o",
+      "# Token d'authentification : \n ## PROD (https://restauration-api--mds.herokuapp.com): \n eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmI4NjdkN2NiNTAxY2QyNGY1MGY0MSIsInVzZXJuYW1lIjoibm9lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjY5MDE4NTczLCJleHAiOjE2NjkwMjkzNzN9.o4BUPTsUYV2bnFsLpEXIkomy73pWzVBDIXty6MBmPaA \n - ## DEV (http://localhost:8888): \n eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmI4NjdkN2NiNTAxY2QyNGY1MGY0MSIsInVzZXJuYW1lIjoibm9lIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjY4NTg5OTk5LCJleHAiOjE2Njg2MDA3OTl9.Ru6JcVKxWSaLewgRkOlqh3hp2C5dy-nsKBqwDhpDi5o",
     termsOfService: '',
     contact: {
       name: 'Noé PHILIPPE',
