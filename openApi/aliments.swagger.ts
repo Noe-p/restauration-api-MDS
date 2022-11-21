@@ -1,11 +1,7 @@
 export const getAliments = {
   tags: ['Aliment'],
   description: 'Retourne tous les aliments',
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
+
   responses: {
     '200': {
       description: 'Liste des aliments',
@@ -46,11 +42,7 @@ export const getAliments = {
 export const getAlimentsByType = {
   tags: ['Aliment'],
   description: "Retourne tous les aliments en fonction d'un type",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
+
   parameters: [
     {
       in: 'path',
@@ -111,11 +103,6 @@ export const getAlimentsByType = {
 export const getAlimentsById = {
   tags: ['Aliment'],
   description: "Retourne tous les aliments en fonction d'un ID",
-  security: [
-    {
-      bearerAuth: [],
-    },
-  ],
   parameters: [
     {
       in: 'path',
@@ -212,6 +199,7 @@ export const putAliment = {
       bearerAuth: [],
     },
   ],
+
   parameters: [
     {
       in: 'path',

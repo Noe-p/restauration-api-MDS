@@ -66,34 +66,47 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
 });
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swagger_1.swaggerDocument));
+var swaggerUiOptions = {
+    swaggerOptions: {
+        basicAuth: {
+            name: 'Authorization',
+            schema: {
+                type: 'bearer',
+                in: 'header',
+            },
+            value: 'Bearer <token>',
+        },
+    },
+};
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swagger_1.swaggerDocument, swaggerUiOptions));
 var _a = require('./middleware/auth.js'), adminAuth = _a.adminAuth, userAuth = _a.userAuth;
 // ROUTES ALIMENTS
 app.get('/', function (req, res) { return res.send('🏠👌'); });
 app.get('/aliments', controllerAliment_1.ControllerAliment.getAliments);
 app.get('/aliments/type/:type', controllerAliment_1.ControllerAliment.getAlimentsByType);
 app.get('/aliments/:id', controllerAliment_1.ControllerAliment.getOneAliments);
-app.post('/aliments', controllerAliment_1.ControllerAliment.insertAliment);
-app.delete('/aliments/:id', controllerAliment_1.ControllerAliment.deleteAliment);
-app.put('/aliments/:id', controllerAliment_1.ControllerAliment.updateAliment);
+app.post('/aliments', adminAuth, controllerAliment_1.ControllerAliment.insertAliment);
+app.delete('/aliments/:id', adminAuth, controllerAliment_1.ControllerAliment.deleteAliment);
+app.put('/aliments/:id', userAuth, controllerAliment_1.ControllerAliment.updateAliment);
 // ROUTES PLATS
 app.get('/plats', controllerPlat_1.ControllerPlat.getPlat);
 app.get('/plats/:id', controllerPlat_1.ControllerPlat.getOnePlat);
 app.get('/plats/type/:type', controllerPlat_1.ControllerPlat.getPlatByType);
-app.post('/plats', controllerPlat_1.ControllerPlat.insertPlat);
-app.delete('/plats/:id', controllerPlat_1.ControllerPlat.deletePlat);
-app.put('/plats/:id', controllerPlat_1.ControllerPlat.updatePlat);
-// ROUTES USER
-app.post('/signup', controllerUser_1.ControllerUser.signup);
+app.post('/plats', adminAuth, controllerPlat_1.ControllerPlat.insertPlat);
+app.delete('/plats/:id', adminAuth, controllerPlat_1.ControllerPlat.deletePlat);
+app.put('/plats/:id', userAuth, controllerPlat_1.ControllerPlat.updatePlat);
+//ROUTES AUTH
 app.post('/login', controllerUser_1.ControllerUser.login);
-app.put('/user/update', userAuth, controllerUser_1.ControllerUser.update);
-app.delete('/users/:id', userAuth, controllerUser_1.ControllerUser.delete);
-app.get('/users', adminAuth, controllerUser_1.ControllerUser.getUsers);
-app.get('/users/:id', userAuth, controllerUser_1.ControllerUser.getUser);
 app.get('/logout', function (req, res) {
     res.cookie('jwt', '', { maxAge: '1' });
     res.redirect('/');
 });
+// ROUTES USER
+app.put('/user/update', userAuth, controllerUser_1.ControllerUser.update);
+app.delete('/users/:id', userAuth, controllerUser_1.ControllerUser.delete);
+app.get('/users', adminAuth, controllerUser_1.ControllerUser.getUsers);
+app.get('/users/:id', userAuth, controllerUser_1.ControllerUser.getUser);
+app.post('/signup', controllerUser_1.ControllerUser.signup);
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var e_1;

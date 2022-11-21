@@ -41,7 +41,24 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+const swaggerUiOptions = {
+  swaggerOptions: {
+    basicAuth: {
+      name: 'Authorization',
+      schema: {
+        type: 'bearer',
+        in: 'header',
+      },
+      value: 'Bearer <token>',
+    },
+  },
+};
+
+app.use(
+  '/docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, swaggerUiOptions)
+);
 
 const { adminAuth, userAuth } = require('./middleware/auth.js');
 
@@ -50,30 +67,31 @@ app.get('/', (req, res) => res.send('🏠👌'));
 app.get('/aliments', ControllerAliment.getAliments);
 app.get('/aliments/type/:type', ControllerAliment.getAlimentsByType);
 app.get('/aliments/:id', ControllerAliment.getOneAliments);
-app.post('/aliments', ControllerAliment.insertAliment);
-app.delete('/aliments/:id', ControllerAliment.deleteAliment);
-app.put('/aliments/:id', ControllerAliment.updateAliment);
+app.post('/aliments', adminAuth, ControllerAliment.insertAliment);
+app.delete('/aliments/:id', adminAuth, ControllerAliment.deleteAliment);
+app.put('/aliments/:id', userAuth, ControllerAliment.updateAliment);
 
 // ROUTES PLATS
 app.get('/plats', ControllerPlat.getPlat);
 app.get('/plats/:id', ControllerPlat.getOnePlat);
 app.get('/plats/type/:type', ControllerPlat.getPlatByType);
-app.post('/plats', ControllerPlat.insertPlat);
-app.delete('/plats/:id', ControllerPlat.deletePlat);
-app.put('/plats/:id', ControllerPlat.updatePlat);
+app.post('/plats', adminAuth, ControllerPlat.insertPlat);
+app.delete('/plats/:id', adminAuth, ControllerPlat.deletePlat);
+app.put('/plats/:id', userAuth, ControllerPlat.updatePlat);
 
-// ROUTES USER
-app.post('/signup', ControllerUser.signup);
+//ROUTES AUTH
 app.post('/login', ControllerUser.login);
-app.put('/user/update', userAuth, ControllerUser.update);
-app.delete('/users/:id', userAuth, ControllerUser.delete);
-app.get('/users', adminAuth, ControllerUser.getUsers);
-app.get('/users/:id', userAuth, ControllerUser.getUser);
-
 app.get('/logout', (req, res) => {
   res.cookie('jwt', '', { maxAge: '1' });
   res.redirect('/');
 });
+
+// ROUTES USER
+app.put('/user/update', userAuth, ControllerUser.update);
+app.delete('/users/:id', userAuth, ControllerUser.delete);
+app.get('/users', adminAuth, ControllerUser.getUsers);
+app.get('/users/:id', userAuth, ControllerUser.getUser);
+app.post('/signup', ControllerUser.signup);
 
 async function main() {
   try {

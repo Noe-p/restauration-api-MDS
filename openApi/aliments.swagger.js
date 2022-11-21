@@ -4,11 +4,6 @@ exports.deleteAliment = exports.putAliment = exports.postAliment = exports.getAl
 exports.getAliments = {
     tags: ['Aliment'],
     description: 'Retourne tous les aliments',
-    security: [
-        {
-            bearerAuth: [],
-        },
-    ],
     responses: {
         '200': {
             description: 'Liste des aliments',
@@ -48,11 +43,6 @@ exports.getAliments = {
 exports.getAlimentsByType = {
     tags: ['Aliment'],
     description: "Retourne tous les aliments en fonction d'un type",
-    security: [
-        {
-            bearerAuth: [],
-        },
-    ],
     parameters: [
         {
             in: 'path',
@@ -112,11 +102,6 @@ exports.getAlimentsByType = {
 exports.getAlimentsById = {
     tags: ['Aliment'],
     description: "Retourne tous les aliments en fonction d'un ID",
-    security: [
-        {
-            bearerAuth: [],
-        },
-    ],
     parameters: [
         {
             in: 'path',
